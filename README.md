@@ -34,11 +34,23 @@ Estimate of time needed to complete: 1hr
 
 Start time: 2:20pm
 
+Finish time: 3:20pm
+
+Actual time needed to complete: 1hr
+
+
+Number and name of feature: #2 Locations
+
+Estimate of time needed to complete: 2hrs
+
+Start time: 3:20pm
+
 Finish time: 
 
 Actual time needed to complete: 
 
-Number and name of feature: #2
+
+Number and name of feature: #3 Weather
 
 Estimate of time needed to complete: _____
 
@@ -48,7 +60,8 @@ Finish time: _____
 
 Actual time needed to complete: _____
 
-Number and name of feature: #3
+
+Number and name of feature: #4 Errors
 
 Estimate of time needed to complete: _____
 
@@ -58,22 +71,3 @@ Finish time: _____
 
 Actual time needed to complete: _____
 
-Number and name of feature: #4
-
-Estimate of time needed to complete: _____
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
-
-Number and name of feature: #5
-
-Estimate of time needed to complete: _____
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____

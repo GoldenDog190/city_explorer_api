@@ -2,6 +2,7 @@
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
+const { json } = require('express');
 
 //=========Global Variables=======
 const PORT = process.env.PORT || 3000;
@@ -13,7 +14,12 @@ app.use(cors());
 //==location==
 app.get('/location', (request, response) =>{
   const jsonObj = require('./data/location.json');
-  const constructedLocation = new Location(jsonObj);
+   console.log(jsonObj);
+
+  const city = request.query.city;
+
+  const constructedLocation = new Location(jsonObj,city);
+   console.log(constructedLocation);
 
   response.send(constructedLocation);
 });
@@ -26,11 +32,13 @@ app.get('/location', (request, response) =>{
 //=======Constructor and 0ther Functions========
 
 //==location constructor==
-function Location(jsonObj){
+function Location(jsonObj, city){
   console.log(jsonObj);
 
-  this.latitude = jsonObj;
-  this.longitude = jsonObj;
+  this.latitude = jsonObj[0].lat;
+  this.longitude = jsonObj[0].lon;
+  this.formatted_query = jsonObj[0].display_name;
+  this.search_query = city;
 }
 
 //==weather constructor==

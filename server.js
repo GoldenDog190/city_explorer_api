@@ -19,9 +19,10 @@ app.get('/location', (request, response) =>{
   const city = request.query.city;
 
   //==error message==
+//  if(request.query.city !== 'Lynnwood'){
 
-   
-
+//    return response.status(500).send('Try typing Lynnwood');
+//  }
   //=================
 
   const constructedLocation = new Location(jsonObj,city);
@@ -36,6 +37,11 @@ function sendWeatherData(request, response){
   let weatherArray =[];
   const jsonWeatherObj = require('./data/weather.json');
   
+//==error message==
+  // if(request.query.forecast !== ''){
+  //   return response.status(500).send('');
+  // }
+//==================
   jsonWeatherObj.data.forEach(day =>{
 
     const constructedWeather = new Weather(day);

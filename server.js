@@ -25,13 +25,30 @@ app.get('/location', (request, response) =>{
 });
 
 //==weather==
+app.get('/weather', sendWeatherData);
+function sendWeatherData(request, response){
+  let weatherArray =[];
+  const jsonWeatherObj = require('./data/weather.json');
+  
+  jsonWeatherObj.data.forEach(day =>{
 
+    const constructedWeather = new Weather(day);
+    // constructedWeather = weatherArray
+    weatherArray.push(constructedWeather);
+    console.log(constructedWeather);
+  })
+
+
+  response.send(weatherArray);
+
+}
 
 //==error==
 
 //=======Constructor and 0ther Functions========
 
 //==location constructor==
+
 function Location(jsonObj, city){
   console.log(jsonObj);
 
@@ -42,6 +59,14 @@ function Location(jsonObj, city){
 }
 
 //==weather constructor==
+
+function Weather(jsonWeatherObj){
+  //console.log(jsonWeatherObj);
+
+  this.forecast = jsonWeatherObj.weather.description;
+  this.time = jsonWeatherObj.datetime;
+
+}
 
 //==========Start the server======
 

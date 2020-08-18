@@ -45,27 +45,27 @@ Estimate of time needed to complete: 2hrs
 
 Start time: 3:20pm
 
-Finish time: 
+Finish time: 5:00pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 1hr 40min
 
 
 Number and name of feature: #3 Weather
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 2hrs
 
-Start time: _____
+Start time: 5:00pm
 
-Finish time: _____
+Finish time: 6:20
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1hr 20min
 
 
 Number and name of feature: #4 Errors
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1hr
 
-Start time: _____
+Start time: 6:20pm
 
 Finish time: _____
 

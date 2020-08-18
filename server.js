@@ -18,17 +18,20 @@ app.get('/location', (request, response) =>{
 
   const city = request.query.city;
 
-  //==error message==
-//  if(request.query.city !== 'Lynnwood'){
-
-//    return response.status(500).send('Try typing Lynnwood');
-//  }
-  //=================
-
+  
   const constructedLocation = new Location(jsonObj,city);
-   console.log(constructedLocation);
-
+  console.log(constructedLocation);
+  
   response.send(constructedLocation);
+  //==error message==
+  //.catch(error => {
+    //  if(request.query.city !== city){
+    
+    //    return response.status(500).send('Try typing in a city');
+    //  }
+
+  //});
+  //=================
 });
 
 //==weather==
@@ -37,19 +40,20 @@ function sendWeatherData(request, response){
   let weatherArray =[];
   const jsonWeatherObj = require('./data/weather.json');
   
-//==error message==
-  // if(request.query.forecast !== ''){
-  //   return response.status(500).send('');
-  // }
-//==================
   jsonWeatherObj.data.forEach(day =>{
-
+    
     const constructedWeather = new Weather(day);
     // constructedWeather = weatherArray
     weatherArray.push(constructedWeather);
     console.log(constructedWeather);
   })
-
+  
+  //==error message==
+  //.catch(error => {
+    // console.log(error);
+    // response.status(500).send(error.message);
+  //});
+//========
 
   response.send(weatherArray);
 

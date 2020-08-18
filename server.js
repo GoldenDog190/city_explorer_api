@@ -18,6 +18,12 @@ app.get('/location', (request, response) =>{
 
   const city = request.query.city;
 
+  //==error message==
+
+   
+
+  //=================
+
   const constructedLocation = new Location(jsonObj,city);
    console.log(constructedLocation);
 
@@ -42,8 +48,6 @@ function sendWeatherData(request, response){
   response.send(weatherArray);
 
 }
-
-//==error==
 
 //=======Constructor and 0ther Functions========
 

@@ -27,6 +27,7 @@ This application uses data files to hold the json files, such as the location.js
 * [Instructions to Setup App](https://codefellows.github.io/code-301-guide/curriculum/class-06/lab/)
 * [City Explorer Trello Board](https://trello.com/b/ZmD87LCC)
 
+## Lab 06 - Time to complete lab
 
 Number and name of feature: #1 Repository Set Up
 
@@ -67,7 +68,53 @@ Estimate of time needed to complete: 1hr
 
 Start time: 6:20pm
 
+Finish time: 6:50pm
+
+Actual time needed to complete: 30min
+
+## Lab 07 - Time to complete lab
+
+Number and name of feature: #1 Data formating
+
+Estimate of time needed to complete: _____
+
+Start time: _____
+
 Finish time: _____
 
 Actual time needed to complete: _____
 
+
+Number and name of feature: #2 Location
+
+Estimate of time needed to complete: _____
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+
+
+Number and name of feature: #3 Weather
+
+Estimate of time needed to complete: _____
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+
+
+Number and name of feature: #4 Trails
+
+Estimate of time needed to complete: _____
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____

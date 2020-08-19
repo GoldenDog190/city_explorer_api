@@ -78,18 +78,18 @@ Number and name of feature: #1 Data formating
 
 Estimate of time needed to complete: 2hrs
 
-Start time: _____
+Start time: 2:30pm
 
-Finish time: _____
+Finish time: 3:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 30min
 
 
 Number and name of feature: #2 Location
 
 Estimate of time needed to complete: 2hr
 
-Start time: _____
+Start time: 3:30pm
 
 Finish time: _____
 

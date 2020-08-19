@@ -75,7 +75,41 @@ function sendWeatherData(request, response){
 
 //======trails===========
 
+app.get('/trails', sendTrailData);
+function sendTrailData(request, response){
+  
+  const latitude = request.query.latitude;
+  const longitude = request.query.longitude;
 
+  
+  const trailKey = process.env.TRAIL_API_KEY;
+  const urlToTrail = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&key=${trailKey}`;
+  
+  superagent.get(urlToTrail)
+  
+  .then(trailComeBack => {
+    console.log(trailComeBack.body.trails);
+
+    const jsonTrailObj = trailComeBack.body.trails;
+    
+    const newTrailArr = jsonTrailObj.map(index => {
+      console.log(index);
+      return new Trail(index);
+    
+    })
+   console.log(newTrailArr);
+
+    response.send(newTrailArr);
+    
+  })
+  //==error message==
+  .catch(error => {
+    //console.log(error);
+    response.status(500).send(error.message);
+  });
+ //========
+
+}
 
 //=======Constructor and 0ther Functions========
 
@@ -102,6 +136,19 @@ function Weather(jsonWeatherObj){
 
 //==trail constructor====
 
+function Trail(jsonTrailObj){
+  this.name = jsonTrailObj.name;
+  this.location = jsonTrailObj.location;
+  this.length = jsonTrailObj.length;
+  this.stars = jsonTrailObj.stars;
+  this.star_votes = jsonTrailObj.star_votes;
+  this.summary = jsonTrailObj.summary;
+  this.trail_url = jsonTrailObj.url;
+  this.conditions = jsonTrailObj.conditionStatus;
+  this.condtion_date = jsonTrailObj.conditionDate;
+  this.condition_time = jsonTrailObj.conditionDate;
+
+}
 
 
 //==========Start the server======

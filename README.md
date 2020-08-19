@@ -13,7 +13,7 @@ First, add the .env and json files to your app. Next, put npm init to create pac
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-This application uses data files to hold the json files, such as the location.json and weather.json. README.md to put down information on the app and length of time it takes to work on it. Then it need the .env file with the POST at 3000. It also needs the package.json file and package.json file, which are down loaded on your terminal. The libraries that will be used for this app are express, cors, and dotenv. The languages used are json.
+This application uses data files to hold the json files, such as the location.json and weather.json. README.md to put down information on the app and length of time it takes to work on it. Then it need the .env file with the POST at 3000. It also needs the package.json file and package.json file, which are down loaded on your terminal. The libraries that will be used for this app are express, cors, and dotenv. Also, added superagent. The languages used are json and js. 
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
@@ -76,7 +76,7 @@ Actual time needed to complete: 30min
 
 Number and name of feature: #1 Data formating
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 2hrs
 
 Start time: _____
 
@@ -87,7 +87,7 @@ Actual time needed to complete: _____
 
 Number and name of feature: #2 Location
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 2hr
 
 Start time: _____
 
@@ -99,7 +99,7 @@ Actual time needed to complete: _____
 
 Number and name of feature: #3 Weather
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 2hr
 
 Start time: _____
 
@@ -111,7 +111,7 @@ Actual time needed to complete: _____
 
 Number and name of feature: #4 Trails
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 2hr
 
 Start time: _____
 

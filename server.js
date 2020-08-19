@@ -33,7 +33,7 @@ app.get('/location', (request, response) =>{
   
   //==error message==
   .catch(error => {
-    console.log(error);
+    //console.log(error);
     response.status(500).send(error.message);
   });
   //=================
@@ -57,10 +57,10 @@ function sendWeatherData(request, response){
     const newWeatherArr = jsonWeatherObj.map(index => {
       console.log(index);
       return new Weather(index);
-    
+      
     })
-    newWeatherArr = newWeatherArr.slice(0,8);
     console.log(newWeatherArr);
+    //newWeatherArr = newWeatherArr.slice(0, 8);
 
     response.send(newWeatherArr);
     

@@ -17,7 +17,7 @@ app.get('/location', (request, response) =>{
   //const jsonObj = require('./data/location.json');
   // console.log(jsonObj);
   const city = request.query.city;
-  const locationKey = process.env.LOCATION_IQ_API_KEY;
+  const locationKey = process.env.GEOCODE_API_KEY;
   const thingToSearchFor = request.query.city;
   const urlToSearch = `https://us1.locationiq.com/v1/search.php?key=${locationKey}&q=${thingToSearchFor}&format=json`;
 
@@ -33,7 +33,7 @@ app.get('/location', (request, response) =>{
   
   //==error message==
   .catch(error => {
-    //console.log(error);
+    console.log(error);
     response.status(500).send(error.message);
   });
   //=================
@@ -59,7 +59,8 @@ function sendWeatherData(request, response){
       return new Weather(index);
     
     })
-   console.log(newWeatherArr);
+    newWeatherArr = newWeatherArr.slice(0,8);
+    console.log(newWeatherArr);
 
     response.send(newWeatherArr);
     

@@ -9,7 +9,7 @@ This application is an API that can get information on locations, weather, etc..
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
-First, add the .env and json files to your app. Next, put npm init to create package.json. Get the server running and install the packages (libraries) you will need in the terminal, and then into the js file. Configure the app and tell the server to listen on the port, and finally write the routes to handle requests from the client. 
+First, add the .env and json files to your app. Next, put npm init to create package.json. Get the server running and install the packages (libraries) you will need in the terminal, and then into the js file. Configure the app and tell the server to listen on the port, and finally write the routes and constructors to handle requests from the client. Add the superagent to all the your routes, and add more routes for the the client. 
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
@@ -20,7 +20,11 @@ This application uses data files to hold the json files, such as the location.js
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
-08-17-2020 2:30pm - added necessary files for the main structure, down loaded package.json and package-lock.json, added libraries, and added information onto the README.md.
+08-17-2020 6:50pm - Added necessary files for the main structure, down loaded package.json and package-lock.json, added libraries, and added information onto the README.md. Also, added the GET location route and weather route.
+
+08-18-2020 6:00pm - Added superagent to the location and weather route, and also added a trail route.
+
+08-19-2020  pm - 
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
@@ -118,3 +122,87 @@ Start time: 5:00pm
 Finish time: 6:00pm
 
 Actual time needed to complete: 1hr
+
+
+## Lab 08 - Time to complete lab
+
+Number and name of feature: #1 Data formating
+
+Estimate of time needed to complete: 2hrs
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+
+Number and name of feature: #2 Server
+
+Estimate of time needed to complete: 2hr
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+
+
+Number and name of feature: #3 Deploy
+
+Estimate of time needed to complete: 2hr
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+
+
+Number and name of feature: #4 Stretch: Server
+
+Estimate of time needed to complete: 2hr
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete:
+
+
+## Lab 09 - Time to complete lab
+
+Number and name of feature: #1 Movies
+
+Estimate of time needed to complete: 2hrs
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+
+Number and name of feature: #2 Yelp
+
+Estimate of time needed to complete: 2hr
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+
+
+Number and name of feature: #3 Pagination
+
+Estimate of time needed to complete: 2hr
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete:

@@ -91,9 +91,9 @@ Estimate of time needed to complete: 2hr
 
 Start time: 3:30pm
 
-Finish time: _____
+Finish time: 4:00pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 30min
 
 
 
@@ -101,11 +101,11 @@ Number and name of feature: #3 Weather
 
 Estimate of time needed to complete: 2hr
 
-Start time: _____
+Start time: 4:00pm
 
-Finish time: _____
+Finish time: 5:00pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1hr
 
 
 
@@ -113,8 +113,8 @@ Number and name of feature: #4 Trails
 
 Estimate of time needed to complete: 2hr
 
-Start time: _____
+Start time: 5:00pm
 
-Finish time: _____
+Finish time: 6:00pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1hr

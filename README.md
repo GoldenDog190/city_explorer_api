@@ -1,6 +1,6 @@
 # city_explorer_api
 
-**Author**: Your Name Goes Here
+**Author**: Amelia M. Waggoner
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
@@ -26,10 +26,19 @@ This application uses data files to hold the json files, such as the location.js
 
 08-19-2020  pm - 
 
+08-20-2020  pm - 
+
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 * [Instructions to Setup App](https://codefellows.github.io/code-301-guide/curriculum/class-06/lab/)
 * [City Explorer Trello Board](https://trello.com/b/ZmD87LCC)
+* [City Explorer front-end made by Code Fellows](https://codefellows.github.io/code-301-guide/curriculum/city-explorer-app/front-end/)
+* [Superagent Docs](https://visionmedia.github.io/superagent/)
+* [Location IQ Geocoding API](https://locationiq.com/docs#forward-geocoding)
+* [Weather Bit API Docs](https://www.weatherbit.io/)
+* [Hiking Project APT Docs](https://www.hikingproject.com/data)
+* [The Movie DB API Docs](https://developers.themoviedb.org/3/getting-started/introduction)
+* [Yelp API Docs](https://www.yelp.com/developers/documentation/v3/business_search)
 
 ## Lab 06 - Time to complete lab
 
@@ -43,6 +52,7 @@ Finish time: 3:20pm
 
 Actual time needed to complete: 1hr
 
+-------------------------------------------
 
 Number and name of feature: #2 Locations
 
@@ -54,6 +64,7 @@ Finish time: 5:00pm
 
 Actual time needed to complete: 1hr 40min
 
+-------------------------------------------
 
 Number and name of feature: #3 Weather
 
@@ -65,6 +76,7 @@ Finish time: 6:20
 
 Actual time needed to complete: 1hr 20min
 
+-------------------------------------------
 
 Number and name of feature: #4 Errors
 
@@ -88,6 +100,7 @@ Finish time: 3:00
 
 Actual time needed to complete: 30min
 
+------------------------------------------
 
 Number and name of feature: #2 Location
 
@@ -99,7 +112,7 @@ Finish time: 4:00pm
 
 Actual time needed to complete: 30min
 
-
+----------------------------------------
 
 Number and name of feature: #3 Weather
 
@@ -111,7 +124,7 @@ Finish time: 5:00pm
 
 Actual time needed to complete: 1hr
 
-
+----------------------------------------
 
 Number and name of feature: #4 Trails
 
@@ -134,8 +147,9 @@ Start time:
 
 Finish time: 
 
-Actual time needed to complete: 
+Actual time needed to complete:
 
+----------------------------------------------
 
 Number and name of feature: #2 Server
 
@@ -147,7 +161,7 @@ Finish time:
 
 Actual time needed to complete: 
 
-
+----------------------------------------------
 
 Number and name of feature: #3 Deploy
 
@@ -159,7 +173,7 @@ Finish time:
 
 Actual time needed to complete: 
 
-
+-----------------------------------------------
 
 Number and name of feature: #4 Stretch: Server
 
@@ -184,6 +198,7 @@ Finish time:
 
 Actual time needed to complete: 
 
+----------------------------------------------
 
 Number and name of feature: #2 Yelp
 
@@ -195,7 +210,7 @@ Finish time:
 
 Actual time needed to complete: 
 
-
+--------------------------------------------
 
 Number and name of feature: #3 Pagination
 

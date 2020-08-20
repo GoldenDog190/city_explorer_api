@@ -64,11 +64,8 @@ function getLocationIQ(request, response){
         //=================
 
        })
-       
-     
     }
   });
-  
 };
 
 

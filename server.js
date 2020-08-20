@@ -3,24 +3,52 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const superagent = require('superagent');
+const pg = require('pg');
 
 //=========Global Variables=======
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
+const DATABASE_URL = process.env.DATABASE_URL;
+
+//==express configs==
+const client = new pg.Client(DATABASE_URL);
+client.on('error', (error) => console.error(error));
 
 
 //==========Routes================
 
 //==location==
-app.get('/location', (request, response) =>{
+app.get('/location', getLocationIQ);
+
+function getLocationIQ(request, response){
   //const jsonObj = require('./data/location.json');
   // console.log(jsonObj);
   const city = request.query.city;
   const locationKey = process.env.GEOCODE_API_KEY;
   const thingToSearchFor = request.query.city;
   const urlToSearch = `https://us1.locationiq.com/v1/search.php?key=${locationKey}&q=${thingToSearchFor}&format=json`;
+  
+  // this is begining thats searching for the database that the search query is there
+  client.query('SELECT * FROM locations')
+  .then(resultFromSql => {
+    console.log(resultFromSql);
+    for(let i = 0; i < resultFromSql.rows.length; i++){
+     let rowsSql = resultFromSql.rows[i];
+     console.log(rowsSql.search_query);
+     console.log(city);
+     if(rowsSql.search_query === city){
+       console.log('found the city');
+       //capture info from the database & return the info instead of going to location IQ
+       //response.send(rowsSql.search_query);
 
+     } //else { 
+       //go to the location iq for information
+      //respond.send();
+     //}
+    }
+  })
+  
   superagent.get(urlToSearch)
   .then(locationComeBack => {
     const superagentResultArr = locationComeBack.body;
@@ -37,7 +65,8 @@ app.get('/location', (request, response) =>{
     response.status(500).send(error.message);
   });
   //=================
-});
+};
+
 
 //==weather==
 app.get('/weather', sendWeatherData);
@@ -55,11 +84,11 @@ function sendWeatherData(request, response){
     const jsonWeatherObj = weatherComeBack.body.data;
     
     const newWeatherArr = jsonWeatherObj.map(index => {
-      console.log(index);
+      //console.log(index);
       return new Weather(index);
       
     })
-    console.log(newWeatherArr);
+    //console.log(newWeatherArr);
     //newWeatherArr = newWeatherArr.slice(0, 8);
 
     response.send(newWeatherArr);
@@ -89,16 +118,16 @@ function sendTrailData(request, response){
   superagent.get(urlToTrail)
   
   .then(trailComeBack => {
-    console.log(trailComeBack.body.trails);
+    //console.log(trailComeBack.body.trails);
 
     const jsonTrailObj = trailComeBack.body.trails;
     
     const newTrailArr = jsonTrailObj.map(index => {
-      console.log(index);
+      //console.log(index);
       return new Trail(index);
     
     })
-   console.log(newTrailArr);
+   //console.log(newTrailArr);
 
     response.send(newTrailArr);
     
@@ -152,6 +181,9 @@ function Trail(jsonTrailObj){
 }
 
 
-//==========Start the server======
-
+//==========Listen======
+client.connect()
+.then(() => {
 app.listen(PORT, () => console.log(`running on PORT : ${PORT}`));
+
+});

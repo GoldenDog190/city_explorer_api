@@ -4,7 +4,6 @@ require('dotenv').config();
 const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
-const { json } = require('express');
 
 //=========Global Variables=======
 const PORT = process.env.PORT || 3000;
@@ -18,54 +17,51 @@ client.on('error', (error) => console.error(error));
 
 
 //==========Routes================
-
-//==location==
 app.get('/location', getLocationIQ);
 
+
+//================Route handlers=============
+
+//==location==
 function getLocationIQ(request, response){
   //const jsonObj = require('./data/location.json');
-  // console.log(jsonObj);
+  // console.log('getting locations);
   const city = request.query.city;
   const locationKey = process.env.GEOCODE_API_KEY;
   const thingToSearchFor = request.query.city;
   const urlToSearch = `https://us1.locationiq.com/v1/search.php?key=${locationKey}&q=${thingToSearchFor}&format=json`;
   
   // this is begining thats searching for the database that the search query is there
-  client.query('SELECT * FROM locations')
+  client.query('SELECT * FROM locations WHERE search_query=$1', [thingToSearchFor])
   .then(resultFromSql => {
     //console.log(resultFromSql);
-    for(let i = 0; i < resultFromSql.rows.length; i++){
-     let rowsSql = resultFromSql.rows[i];
-     //console.log(rowsSql.search_query);
-     //console.log(city);
-     if(rowsSql.search_query === city){
-       //console.log('found the city');
+     if(resultFromSql === 1){
+       console.log(resultFromSql.rows[0]);
        //capture info from the database & return the info instead of going to location IQ
-       //response.send(resultFromSql.rows);
+       response.send(resultFromSql.rows[0]);
 
      } //else { 
        //go to the location iq for information
-      //respond.send(constructedLocation);
-     //}
+       superagent.get(urlToSearch)
+       .then(locationComeBack => {
+         const superagentResultArr = locationComeBack.body;
+         
+         const constructedLocation = new Location(superagentResultArr, city);
+         response.send(constructedLocation);
+     
+        // console.log('this is being sent from/location to client :', constructedLocation);
+       })
+       
+       //==error message==
+       .catch(error => {
+         //console.log(error);
+         response.status(500).send(error.message);
+       });
+       //=================
+     
     }
-  })
-  
-  superagent.get(urlToSearch)
-  .then(locationComeBack => {
-    const superagentResultArr = locationComeBack.body;
-    
-    const constructedLocation = new Location(superagentResultArr, city);
-    response.send(constructedLocation);
-
-   // console.log('this is being sent from/location to client :', constructedLocation);
-  })
-  
-  //==error message==
-  .catch(error => {
-    //console.log(error);
-    response.status(500).send(error.message);
   });
-  //=================
+  
 };
 
 

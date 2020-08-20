@@ -24,9 +24,9 @@ This application uses data files to hold the json files, such as the location.js
 
 08-18-2020 6:00pm - Added superagent to the location and weather route, and also added a trail route.
 
-08-19-2020  pm - 
+08-19-2020 7:00 pm - Added SQL to this app, and a function that either gives you infomation from the SQL database or from the API.
 
-08-20-2020  pm - 
+08-20-2020  pm - Added Yelp and movie API, routes, and constructor functions.
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->

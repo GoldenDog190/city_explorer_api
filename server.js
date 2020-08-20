@@ -180,30 +180,30 @@ function sendMovieData(request, response){
 
 //======Yelp================
 app.get('/yelp', sendYelpData);
-function sendTrailData(request, response){
+function sendYelpData(request, response){
   
   const latitude = request.query.latitude;
   const longitude = request.query.longitude;
 
   
-  const trailKey = process.env.TRAIL_API_KEY;
-  const urlToTrail = ``;
+  const yelpKey = process.env.YELP_API_KEY;
+  const urlToYelp = ``;
   
-  superagent.get(urlToTrail)
+  superagent.get(urlToYelp)
   
-  .then(trailComeBack => {
-    //console.log(trailComeBack.body.trails);
+  .then(yelpComeBack => {
+    //console.log(yelpComeBack.body.yelp);
 
-    const jsonTrailObj = trailComeBack.body.trails;
+    const jsonYelpObj = yelpComeBack.body.yelp;
     
-    const newTrailArr = jsonTrailObj.map(index => {
+    const newYelpArr = jsonYelpObj.map(index => {
       //console.log(index);
-      return new Trail(index);
+      return new Yelp(index);
     
     })
-   //console.log(newTrailArr);
+   //console.log(newYelpArr);
 
-    response.send(newTrailArr);
+    response.send(newYelpArr);
     
   })
   //==error message==
@@ -262,6 +262,14 @@ function Movie(jsonMovieObj){
 
 //==yelp constructor=====
 
+function Yelp(jsonYelpObj){
+  //console.log(jsonYelpObj);
+  this.name = jsonYelpObj;
+  this.image_url = jsonYelpObj;
+  this.price = jsonYelpObj;
+  this.rating = jsonYelpObj;
+  this.url = jsonYelpObj;
+}
 
 //==========Listen======
 client.connect()

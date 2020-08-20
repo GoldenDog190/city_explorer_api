@@ -18,7 +18,10 @@ client.on('error', (error) => console.error(error));
 
 //==========Routes================
 app.get('/location', getLocationIQ);
-
+app.get('/weather', sendWeatherData);
+app.get('/trails', sendTrailData);
+app.get('/movies', sendMovieData);
+app.get('/yelp', sendYelpData);
 
 //================Route handlers=============
 
@@ -70,7 +73,7 @@ function getLocationIQ(request, response){
 
 
 //==weather==
-app.get('/weather', sendWeatherData);
+
 function sendWeatherData(request, response){
   
   const latitude = request.query.latitude;
@@ -106,7 +109,6 @@ function sendWeatherData(request, response){
 
 //======trails===========
 
-app.get('/trails', sendTrailData);
 function sendTrailData(request, response){
   
   const latitude = request.query.latitude;
@@ -143,7 +145,7 @@ function sendTrailData(request, response){
 }
 
 //=======Movies=============
-app.get('/movies', sendMovieData);
+
 function sendMovieData(request, response){
   
   const latitude = request.query.latitude;
@@ -179,7 +181,6 @@ function sendMovieData(request, response){
 }
 
 //======Yelp================
-app.get('/yelp', sendYelpData);
 function sendYelpData(request, response){
   
   const latitude = request.query.latitude;
@@ -252,12 +253,12 @@ function Trail(jsonTrailObj){
 
 function Movie(jsonMovieObj){
 //console.log(jsonMovieObj);
- this.title = jsonMovieObj;
- this.overview = jsonMovieObj;
- this.total_votes = jsonMovieObj;
- this.image_url = jsonMovieObj;
- this.popularity = jsonMovieObj;
- this.released_on = jsonMovieObj;
+ this.title = jsonMovieObj.original_title;
+ this.overview = jsonMovieObj.overview;
+ this.total_votes = jsonMovieObj.vote_count;
+ this.image_url = jsonMovieObj.belongs_to_collection.poster_path;
+ this.popularity = jsonMovieObj.popularity;
+ this.released_on = jsonMovieObj.release_date;
 }
 
 //==yelp constructor=====

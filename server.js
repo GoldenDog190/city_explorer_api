@@ -155,7 +155,7 @@ function sendMovieData(request, response){
   superagent.get(urlToMovie)
   
   .then(movieComeBack => {
-    //console.log(movieComeBack.body.movie);
+    console.log(movieComeBack.body);
 
     const jsonMovieObj = movieComeBack.body.movie;
     //console.log(jsonMovieObj);

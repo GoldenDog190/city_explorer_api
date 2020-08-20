@@ -159,13 +159,10 @@ function sendMovieData(request, response){
   .then(movieComeBack => {
     console.log(movieComeBack.body);
 
-    const jsonMovieObj = movieComeBack.body.movie;
+    const jsonMovieObj = movieComeBack.body;
     //console.log(jsonMovieObj);
-    const newMovieArr = jsonMovieObj.map(index => {
-      //console.log(index);
-      return new Movie(index);
+    const newMovieArr = new Movie(jsonMovieObj);
     
-    })
    //console.log(newMovieArr);
 
     response.send(newMovieArr);
@@ -188,20 +185,17 @@ function sendYelpData(request, response){
 
   
   const yelpKey = process.env.YELP_API_KEY;
-  const urlToYelp = ``;
+  const urlToYelp = `https://api.yelp.com/v3/businesses/search?latitude=${latitude}&longitude=${longitude}&key=${yelpKey}`;
   
   superagent.get(urlToYelp)
   
   .then(yelpComeBack => {
-    //console.log(yelpComeBack.body.yelp);
+    //console.log(yelpComeBack.body);
 
-    const jsonYelpObj = yelpComeBack.body.yelp;
+    const jsonYelpObj = yelpComeBack.body;
+    console.log(jsonYelpObj);
+    const newYelpArr = new Yelp(jsonYelpObj);
     
-    const newYelpArr = jsonYelpObj.map(index => {
-      //console.log(index);
-      return new Yelp(index);
-    
-    })
    //console.log(newYelpArr);
 
     response.send(newYelpArr);
@@ -253,8 +247,9 @@ function Trail(jsonTrailObj){
 
 function Movie(jsonMovieObj){
 //console.log(jsonMovieObj);
- this.title = jsonMovieObj.original_title;
+ this.title = jsonMovieObj.title;
  this.overview = jsonMovieObj.overview;
+ this.average_votes = jsonMovieObj. vote_average;
  this.total_votes = jsonMovieObj.vote_count;
  this.image_url = jsonMovieObj.belongs_to_collection.poster_path;
  this.popularity = jsonMovieObj.popularity;

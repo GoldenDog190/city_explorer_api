@@ -40,7 +40,7 @@ function getLocationIQ(request, response){
        //capture info from the database & return the info instead of going to location IQ
        response.send(resultFromSql.rows[0]);
 
-     } //else { 
+     } else { 
        //go to the location iq for information
        superagent.get(urlToSearch)
        .then(locationComeBack => {
@@ -50,14 +50,21 @@ function getLocationIQ(request, response){
          response.send(constructedLocation);
      
         // console.log('this is being sent from/location to client :', constructedLocation);
+
+        const saveLocationQuery = 'INSERT INTO locations (formatted_query, longitude, latitude, search_query) VALUES($1, $2, $3, $4)';
+        const locationArray = [constructedLocation.formatted_query, constructedLocation.longitude, constructedLocation.latitude, constructedLocation.search_query];
+
+        client.query(saveLocationQuery, locationArray)
+        .then(() => console.log('saved location'))
+        //==error message==
+        .catch(error => {
+          //console.log(error);
+          response.status(500).send(error.message);
+        });
+        //=================
+
        })
        
-       //==error message==
-       .catch(error => {
-         //console.log(error);
-         response.status(500).send(error.message);
-       });
-       //=================
      
     }
   });

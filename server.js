@@ -40,9 +40,12 @@ function getLocationIQ(request, response){
      if(rowsSql.search_query === city){
        console.log('found the city');
        //capture info from the database & return the info instead of going to location IQ
-     } else { 
+       //response.send(rowsSql.search_query);
+
+     } //else { 
        //go to the location iq for information
-     }
+      //respond.send();
+     //}
     }
   })
   

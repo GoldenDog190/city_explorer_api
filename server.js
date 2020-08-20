@@ -4,6 +4,7 @@ require('dotenv').config();
 const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
+const { json } = require('express');
 
 //=========Global Variables=======
 const PORT = process.env.PORT || 3000;
@@ -32,19 +33,19 @@ function getLocationIQ(request, response){
   // this is begining thats searching for the database that the search query is there
   client.query('SELECT * FROM locations')
   .then(resultFromSql => {
-    console.log(resultFromSql);
+    //console.log(resultFromSql);
     for(let i = 0; i < resultFromSql.rows.length; i++){
      let rowsSql = resultFromSql.rows[i];
-     console.log(rowsSql.search_query);
-     console.log(city);
+     //console.log(rowsSql.search_query);
+     //console.log(city);
      if(rowsSql.search_query === city){
-       console.log('found the city');
+       //console.log('found the city');
        //capture info from the database & return the info instead of going to location IQ
-       //response.send(rowsSql.search_query);
+       //response.send(resultFromSql.rows);
 
      } //else { 
        //go to the location iq for information
-      //respond.send();
+      //respond.send(constructedLocation);
      //}
     }
   })
@@ -138,7 +139,80 @@ function sendTrailData(request, response){
     response.status(500).send(error.message);
   });
  //========
+ 
+}
 
+//=======Movies=============
+app.get('/movies', sendMovieData);
+function sendMovieData(request, response){
+  
+  const latitude = request.query.latitude;
+  const longitude = request.query.longitude;
+
+  const movieKey = process.env.MOVIE_API_KEY;
+  const urlToMovie = `https://api.themoviedb.org/3/movie/76341?api_key=${movieKey}`;
+  
+  superagent.get(urlToMovie)
+  
+  .then(movieComeBack => {
+    //console.log(movieComeBack.body.movie);
+
+    const jsonMovieObj = movieComeBack.body.movie;
+    //console.log(jsonMovieObj);
+    const newMovieArr = jsonMovieObj.map(index => {
+      //console.log(index);
+      return new Movie(index);
+    
+    })
+   //console.log(newMovieArr);
+
+    response.send(newMovieArr);
+    
+  })
+  //==error message==
+  .catch(error => {
+    //console.log(error);
+    response.status(500).send(error.message);
+  });
+ //========
+ 
+}
+
+//======Yelp================
+app.get('/yelp', sendYelpData);
+function sendYelpData(request, response){
+  
+  const latitude = request.query.latitude;
+  const longitude = request.query.longitude;
+
+  
+  const yelpKey = process.env.YELP_API_KEY;
+  const urlToYelp = ``;
+  
+  superagent.get(urlToYelp)
+  
+  .then(yelpComeBack => {
+    //console.log(yelpComeBack.body.yelp);
+
+    const jsonYelpObj = yelpComeBack.body.yelp;
+    
+    const newYelpArr = jsonYelpObj.map(index => {
+      //console.log(index);
+      return new Yelp(index);
+    
+    })
+   //console.log(newYelpArr);
+
+    response.send(newYelpArr);
+    
+  })
+  //==error message==
+  .catch(error => {
+    //console.log(error);
+    response.status(500).send(error.message);
+  });
+ //========
+ 
 }
 
 //=======Constructor and 0ther Functions========
@@ -146,8 +220,6 @@ function sendTrailData(request, response){
 //==location constructor==
 
 function Location(jsonObj, city){
-  //console.log(jsonObj);
-
   this.latitude = jsonObj[0].lat;
   this.longitude = jsonObj[0].lon;
   this.formatted_query = jsonObj[0].display_name;
@@ -157,11 +229,8 @@ function Location(jsonObj, city){
 //==weather constructor==
 
 function Weather(jsonWeatherObj){
-  //console.log(jsonWeatherObj);
-
   this.forecast = jsonWeatherObj.weather.description;
   this.time = jsonWeatherObj.datetime;
-
 }
 
 //==trail constructor====
@@ -177,9 +246,30 @@ function Trail(jsonTrailObj){
   this.conditions = jsonTrailObj.conditionStatus;
   this.condtion_date = jsonTrailObj.conditionDate;
   this.condition_time = jsonTrailObj.conditionDate;
-
 }
 
+//==movie constructor====
+
+function Movie(jsonMovieObj){
+//console.log(jsonMovieObj);
+ this.title = jsonMovieObj;
+ this.overview = jsonMovieObj;
+ this.total_votes = jsonMovieObj;
+ this.image_url = jsonMovieObj;
+ this.popularity = jsonMovieObj;
+ this.released_on = jsonMovieObj;
+}
+
+//==yelp constructor=====
+
+function Yelp(jsonYelpObj){
+  //console.log(jsonYelpObj);
+  this.name = jsonYelpObj;
+  this.image_url = jsonYelpObj;
+  this.price = jsonYelpObj;
+  this.rating = jsonYelpObj;
+  this.url = jsonYelpObj;
+}
 
 //==========Listen======
 client.connect()

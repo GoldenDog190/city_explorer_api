@@ -193,8 +193,8 @@ let yelpQuery = request.query.formatted_query;
   .set('Authorization',`Bearer ${yelpKey}`)
   .then(yelpComeBack => {
     
-    console.log(yelpComeBack.body);
-    const jsonYelpObj = yelpComeBack.body;
+    const jsonYelpObj = yelpComeBack.body.businesses;
+   
     const newYelpArr = jsonYelpObj.map(yelp => {
       return new Yelp(yelp);
     })
@@ -263,11 +263,11 @@ function Movie(jsonMovieObj){
 
 function Yelp(jsonYelpObj){
   //console.log(jsonYelpObj);
-  this.name = jsonYelpObj;
-  this.image_url = jsonYelpObj;
-  this.price = jsonYelpObj;
-  this.rating = jsonYelpObj;
-  this.url = jsonYelpObj;
+  this.name = jsonYelpObj.name;
+  this.image_url = jsonYelpObj.image_url;
+  this.price = jsonYelpObj.price;
+  this.rating = jsonYelpObj.rating;
+  this.url = jsonYelpObj.url;
 }
 
 //==========Listen======

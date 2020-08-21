@@ -149,8 +149,8 @@ function sendTrailData(request, response){
 //=======Movies=============
 
 function sendMovieData(request, response){
-  console.log('this is the movie route');
-console.log(request.query);
+  //console.log('this is the movie route');
+//console.log(request.query);
  let movieSearch = request.query.search_query;
 
   const movieKey = process.env.MOVIE_API_KEY;
@@ -159,7 +159,7 @@ console.log(request.query);
   superagent.get(urlToMovie)
   
   .then(movieComeBack => {
-    console.log(movieComeBack.body.results);
+    //console.log(movieComeBack.body.results);
 
     const jsonMovieObj = movieComeBack.body.results;
     //console.log(jsonMovieObj);
@@ -167,14 +167,14 @@ console.log(request.query);
       return new Movie(movie);
     }) 
     
-   console.log(newMovieArr);
+   //console.log(newMovieArr);
 
     response.send(newMovieArr);
     
   })
   //==error message==
   .catch(error => {
-    console.log(error);
+    //console.log(error);
     response.status(500).send(error.message);
   });
  //========
@@ -183,21 +183,21 @@ console.log(request.query);
 
 //======Yelp================
 function sendYelpData(request, response){
-  //console.log('yelp');
-  const latitude = request.query.latitude;
-  const longitude = request.query.longitude;
-
+console.log('yelp');
+let yelpQuery = request.query.formatted_query;
   //console.log('yelp req.query : ', request.query);  
   const yelpKey = process.env.YELP_API_KEY;
-  const urlToYelp = `https://api.yelp.com/v3/businesses/search?api_key=${yelpKey}`;
+  const urlToYelp = `https://api.yelp.com/v3/businesses/search?location=${yelpQuery}`;
   
   superagent.get(urlToYelp)
-  
+  .set('Authorization',`Bearer ${yelpKey}`)
   .then(yelpComeBack => {
     
-    //console.log(jsonYelpObj.body);
+    console.log(yelpComeBack.body);
     const jsonYelpObj = yelpComeBack.body;
-    const newYelpArr = new Yelp(jsonYelpObj);
+    const newYelpArr = jsonYelpObj.map(yelp => {
+      return new Yelp(yelp);
+    })
     
    //console.log(newYelpArr);
 
@@ -206,7 +206,7 @@ function sendYelpData(request, response){
   })
   //==error message==
   .catch(error => {
-    //console.log(error);
+    console.log(error);
     response.status(500).send(error.message);
   });
  //========

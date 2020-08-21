@@ -11,6 +11,8 @@ const app = express();
 app.use(cors());
 const DATABASE_URL = process.env.DATABASE_URL;
 
+let pgWeAreOne = 0;
+
 //==express configs==
 const client = new pg.Client(DATABASE_URL);
 client.on('error', (error) => console.error(error));
@@ -18,7 +20,10 @@ client.on('error', (error) => console.error(error));
 
 //==========Routes================
 app.get('/location', getLocationIQ);
-
+app.get('/weather', sendWeatherData);
+app.get('/trails', sendTrailData);
+app.get('/movies', sendMovieData);
+app.get('/yelp', sendYelpData);
 
 //================Route handlers=============
 
@@ -70,7 +75,7 @@ function getLocationIQ(request, response){
 
 
 //==weather==
-app.get('/weather', sendWeatherData);
+
 function sendWeatherData(request, response){
   
   const latitude = request.query.latitude;
@@ -106,7 +111,6 @@ function sendWeatherData(request, response){
 
 //======trails===========
 
-app.get('/trails', sendTrailData);
 function sendTrailData(request, response){
   
   const latitude = request.query.latitude;
@@ -143,27 +147,26 @@ function sendTrailData(request, response){
 }
 
 //=======Movies=============
-app.get('/movies', sendMovieData);
+
 function sendMovieData(request, response){
-  
-  const latitude = request.query.latitude;
-  const longitude = request.query.longitude;
+  //console.log('this is the movie route');
+//console.log(request.query);
+ let movieSearch = request.query.search_query;
 
   const movieKey = process.env.MOVIE_API_KEY;
-  const urlToMovie = `https://api.themoviedb.org/3/movie/76341?api_key=${movieKey}`;
+  const urlToMovie = `https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movieSearch}`;
   
   superagent.get(urlToMovie)
   
   .then(movieComeBack => {
-    console.log(movieComeBack.body);
+    //console.log(movieComeBack.body.results);
 
-    const jsonMovieObj = movieComeBack.body.movie;
+    const jsonMovieObj = movieComeBack.body.results;
     //console.log(jsonMovieObj);
-    const newMovieArr = jsonMovieObj.map(index => {
-      //console.log(index);
-      return new Movie(index);
+    const newMovieArr = jsonMovieObj.map(movie =>{
+      return new Movie(movie);
+    }) 
     
-    })
    //console.log(newMovieArr);
 
     response.send(newMovieArr);
@@ -179,28 +182,23 @@ function sendMovieData(request, response){
 }
 
 //======Yelp================
-app.get('/yelp', sendYelpData);
 function sendYelpData(request, response){
-  
-  const latitude = request.query.latitude;
-  const longitude = request.query.longitude;
-
-  
+//console.log('yelp');
+let yelpQuery = request.query.formatted_query;
+  console.log('yelp req.query : ', request.query);  
   const yelpKey = process.env.YELP_API_KEY;
-  const urlToYelp = ``;
+  const urlToYelp = `https://api.yelp.com/v3/businesses/search?location=${yelpQuery}&start=${request.query.page * 5}`;
   
   superagent.get(urlToYelp)
-  
+  .set('Authorization',`Bearer ${yelpKey}`)
   .then(yelpComeBack => {
-    //console.log(yelpComeBack.body.yelp);
-
-    const jsonYelpObj = yelpComeBack.body.yelp;
     
-    const newYelpArr = jsonYelpObj.map(index => {
-      //console.log(index);
-      return new Yelp(index);
-    
+    const jsonYelpObj = yelpComeBack.body.businesses;
+   
+    const newYelpArr = jsonYelpObj.map(yelp => {
+      return new Yelp(yelp);
     })
+    
    //console.log(newYelpArr);
 
     response.send(newYelpArr);
@@ -208,7 +206,7 @@ function sendYelpData(request, response){
   })
   //==error message==
   .catch(error => {
-    //console.log(error);
+    console.log(error);
     response.status(500).send(error.message);
   });
  //========
@@ -252,23 +250,24 @@ function Trail(jsonTrailObj){
 
 function Movie(jsonMovieObj){
 //console.log(jsonMovieObj);
- this.title = jsonMovieObj;
- this.overview = jsonMovieObj;
- this.total_votes = jsonMovieObj;
- this.image_url = jsonMovieObj;
- this.popularity = jsonMovieObj;
- this.released_on = jsonMovieObj;
+ this.title = jsonMovieObj.original_title;
+ this.overview = jsonMovieObj.overview;
+ this.average_votes = jsonMovieObj. vote_average;
+ this.total_votes = jsonMovieObj.vote_count;
+ this.image_url = `https://image.tmdb.org/t/p/original${jsonMovieObj.poster_path}`;
+ this.popularity = jsonMovieObj.popularity;
+ this.released_on = jsonMovieObj.release_date;
 }
 
 //==yelp constructor=====
 
 function Yelp(jsonYelpObj){
   //console.log(jsonYelpObj);
-  this.name = jsonYelpObj;
-  this.image_url = jsonYelpObj;
-  this.price = jsonYelpObj;
-  this.rating = jsonYelpObj;
-  this.url = jsonYelpObj;
+  this.name = jsonYelpObj.name;
+  this.image_url = jsonYelpObj.image_url;
+  this.price = jsonYelpObj.price;
+  this.rating = jsonYelpObj.rating;
+  this.url = jsonYelpObj.url;
 }
 
 //==========Listen======

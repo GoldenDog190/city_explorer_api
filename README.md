@@ -26,7 +26,7 @@ This application uses data files to hold the json files, such as the location.js
 
 08-19-2020 7:00 pm - Added SQL to this app, and a function that either gives you infomation from the SQL database or from the API.
 
-08-20-2020  pm - Added Yelp and movie API, routes, and constructor functions.
+08-20-2020 6:45pm - Added Yelp and movie API routes and constructor functions, and added the pagination to yelp route url.
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
@@ -192,11 +192,11 @@ Number and name of feature: #1 Movies
 
 Estimate of time needed to complete: 2hrs
 
-Start time: 
+Start time: 3:00pm
 
-Finish time: 
+Finish time: 5:00pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 2hrs
 
 ----------------------------------------------
 
@@ -204,20 +204,20 @@ Number and name of feature: #2 Yelp
 
 Estimate of time needed to complete: 2hr
 
-Start time: 
+Start time: 4:00pm
 
-Finish time: 
+Finish time: 6:15pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 2hrs 15min
 
 --------------------------------------------
 
 Number and name of feature: #3 Pagination
 
-Estimate of time needed to complete: 2hr
+Estimate of time needed to complete: 30min
 
-Start time: 
+Start time: 6:15pm
 
-Finish time: 
+Finish time: 6:30pm
 
-Actual time needed to complete:
+Actual time needed to complete: 15min

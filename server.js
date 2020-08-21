@@ -11,6 +11,8 @@ const app = express();
 app.use(cors());
 const DATABASE_URL = process.env.DATABASE_URL;
 
+let pgWeAreOne = 0;
+
 //==express configs==
 const client = new pg.Client(DATABASE_URL);
 client.on('error', (error) => console.error(error));
@@ -147,30 +149,32 @@ function sendTrailData(request, response){
 //=======Movies=============
 
 function sendMovieData(request, response){
-  
-  const latitude = request.query.latitude;
-  const longitude = request.query.longitude;
+  console.log('this is the movie route');
+console.log(request.query);
+ let movieSearch = request.query.search_query;
 
   const movieKey = process.env.MOVIE_API_KEY;
-  const urlToMovie = `https://api.themoviedb.org/3/movie/76341?api_key=${movieKey}`;
+  const urlToMovie = `https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movieSearch}`;
   
   superagent.get(urlToMovie)
   
   .then(movieComeBack => {
-    console.log(movieComeBack.body);
+    console.log(movieComeBack.body.results);
 
-    const jsonMovieObj = movieComeBack.body;
+    const jsonMovieObj = movieComeBack.body.results;
     //console.log(jsonMovieObj);
-    const newMovieArr = new Movie(jsonMovieObj);
+    const newMovieArr = jsonMovieObj.map(movie =>{
+      return new Movie(movie);
+    }) 
     
-   //console.log(newMovieArr);
+   console.log(newMovieArr);
 
     response.send(newMovieArr);
     
   })
   //==error message==
   .catch(error => {
-    //console.log(error);
+    console.log(error);
     response.status(500).send(error.message);
   });
  //========
@@ -179,21 +183,20 @@ function sendMovieData(request, response){
 
 //======Yelp================
 function sendYelpData(request, response){
-  
+  //console.log('yelp');
   const latitude = request.query.latitude;
   const longitude = request.query.longitude;
 
-  
+  //console.log('yelp req.query : ', request.query);  
   const yelpKey = process.env.YELP_API_KEY;
-  const urlToYelp = `https://api.yelp.com/v3/businesses/search?latitude=${latitude}&longitude=${longitude}&key=${yelpKey}`;
+  const urlToYelp = `https://api.yelp.com/v3/businesses/search?api_key=${yelpKey}`;
   
   superagent.get(urlToYelp)
   
   .then(yelpComeBack => {
-    //console.log(yelpComeBack.body);
-
+    
+    //console.log(jsonYelpObj.body);
     const jsonYelpObj = yelpComeBack.body;
-    console.log(jsonYelpObj);
     const newYelpArr = new Yelp(jsonYelpObj);
     
    //console.log(newYelpArr);
@@ -247,11 +250,11 @@ function Trail(jsonTrailObj){
 
 function Movie(jsonMovieObj){
 //console.log(jsonMovieObj);
- this.title = jsonMovieObj.title;
+ this.title = jsonMovieObj.original_title;
  this.overview = jsonMovieObj.overview;
  this.average_votes = jsonMovieObj. vote_average;
  this.total_votes = jsonMovieObj.vote_count;
- this.image_url = jsonMovieObj.belongs_to_collection.poster_path;
+ this.image_url = `https://image.tmdb.org/t/p/original${jsonMovieObj.poster_path}`;
  this.popularity = jsonMovieObj.popularity;
  this.released_on = jsonMovieObj.release_date;
 }

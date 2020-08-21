@@ -60,7 +60,9 @@ function getLocationIQ(request, response){
         const locationArray = [constructedLocation.formatted_query, constructedLocation.longitude, constructedLocation.latitude, constructedLocation.search_query];
 
         client.query(saveLocationQuery, locationArray)
-        .then(() => console.log('saved location'))
+        .then(() => {
+          response.status(201).send(constructedLocation);
+        })
         //==error message==
         .catch(error => {
           //console.log(error);

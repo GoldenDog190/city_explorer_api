@@ -183,11 +183,11 @@ function sendMovieData(request, response){
 
 //======Yelp================
 function sendYelpData(request, response){
-console.log('yelp');
+//console.log('yelp');
 let yelpQuery = request.query.formatted_query;
-  //console.log('yelp req.query : ', request.query);  
+  console.log('yelp req.query : ', request.query);  
   const yelpKey = process.env.YELP_API_KEY;
-  const urlToYelp = `https://api.yelp.com/v3/businesses/search?location=${yelpQuery}`;
+  const urlToYelp = `https://api.yelp.com/v3/businesses/search?location=${yelpQuery}&start=${request.query.page * 5}`;
   
   superagent.get(urlToYelp)
   .set('Authorization',`Bearer ${yelpKey}`)

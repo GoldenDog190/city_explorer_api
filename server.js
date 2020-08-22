@@ -11,7 +11,6 @@ const app = express();
 app.use(cors());
 const DATABASE_URL = process.env.DATABASE_URL;
 
-let pgWeAreOne = 0;
 
 //==express configs==
 const client = new pg.Client(DATABASE_URL);
@@ -41,9 +40,9 @@ function getLocationIQ(request, response){
   .then(resultFromSql => {
     //console.log(resultFromSql);
      if(resultFromSql === 1){
-       console.log(resultFromSql.rows[0]);
+       console.log(resultFromSql.rowCount[0]);
        //capture info from the database & return the info instead of going to location IQ
-       response.send(resultFromSql.rows[0]);
+       response.send(resultFromSql.rowCount[0]);
 
      } else { 
        //go to the location iq for information
@@ -189,7 +188,7 @@ function sendYelpData(request, response){
 let yelpQuery = request.query.formatted_query;
   console.log('yelp req.query : ', request.query);  
   const yelpKey = process.env.YELP_API_KEY;
-  const urlToYelp = `https://api.yelp.com/v3/businesses/search?location=${yelpQuery}&start=${request.query.page * 5}`;
+  const urlToYelp = `https://api.yelp.com/v3/businesses/search?location=${yelpQuery}&limit=5&offset=5`;
   
   superagent.get(urlToYelp)
   .set('Authorization',`Bearer ${yelpKey}`)
